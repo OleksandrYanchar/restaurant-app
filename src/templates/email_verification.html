@@ -1,0 +1,13 @@
+<!-- src/templates/email_verification.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activate Your Account</title>
+</head>
+<body>
+    <p>Hi {{ user.username }},</p>
+    <p>Please click the link below to activate your account:</p>
+    <p><a href="http://{{ domain }}{% url 'email-verification' uidb64=uid token=token %}">Activate</a></p>
+</body>
+</html>
