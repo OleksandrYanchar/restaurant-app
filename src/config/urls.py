@@ -25,8 +25,15 @@ API_VERS = 'api/v1'
 
 urlpatterns = [
     path(f"{API_VERS}/admin/", admin.site.urls),
+    # Auth urls
     path(f"{API_VERS}/auth/", include('accounts.urls')),
     
+   # Restaurant urls
+   path(f"{API_VERS}/restaurant/", include('restaurants.urls')),
+       
+   # Voting urls
+   path(f"{API_VERS}/vote/", include('votes.urls')),
+
     # Swagger urls
     path(f'{API_VERS}/swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),  
     path(f'{API_VERS}/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

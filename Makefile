@@ -31,6 +31,9 @@ shell:
 test:
 	sudo docker-compose run backend python manage.py test
 
+test-restaurant:
+	sudo docker-compospython manage.py test apps/restaurants/tests/
+
 clean:
 	sudo docker-compose down -v
 

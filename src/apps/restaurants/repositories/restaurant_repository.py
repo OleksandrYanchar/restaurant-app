@@ -1,0 +1,120 @@
+# apps/restaurants/repositories.py
+
+from apps.accounts.models import User
+from apps.restaurants.models import Restaurant, Menu
+
+class RestaurantRepository:
+    @staticmethod
+    def create_restaurant(title, owner, address=None, contact_phone=None, email=None):
+        """
+        Create a new restaurant.
+
+        :param title: The title of the restaurant.
+        :param address: The address of the restaurant.
+        :param contact_phone: The contact phone of the restaurant.
+        :param email: The email of the restaurant.
+        :return: The created restaurant instance.
+        """
+        return Restaurant.objects.create(
+            title=title,
+            owner=owner,
+            address=address,
+            contact_phone=contact_phone,
+            email=email
+        )
+
+    @staticmethod
+    def edit_restaurant(restaurant_id, **kwargs):
+        """
+        Edit an existing restaurant.
+
+        :param restaurant_id: The ID of the restaurant to edit.
+        :param kwargs: The fields to update.
+        :return: The updated restaurant instance, or None if not found.
+        """
+        try:
+            restaurant = Restaurant.objects.get(id=restaurant_id)
+            for key, value in kwargs.items():
+                if value is not None:
+                    setattr(restaurant, key, value)
+            restaurant.save()
+            return restaurant
+        except Restaurant.DoesNotExist:
+            return None
+
+
+class EmployeeRepository:
+    @staticmethod
+    def create_employee(user, restaurant):
+        """
+        Create a new employee.
+
+        :param user: The user instance for the employee.
+        :param restaurant: The restaurant instance where the employee works.
+        :return: The created employee instance.
+        """
+        employee = Employee(user=user, restaurant=restaurant)
+        employee.save()
+        return employee
+
+    @staticmethod
+    def get_employee_by_user(user):
+        """
+        Get an employee by user instance.
+
+        :param user: The user instance.
+        :return: The employee instance, or None if not found.
+        """
+        try:
+            return Employee.objects.get(user=user)
+        except Employee.DoesNotExist:
+            return None
+
+
+class MenuRepository:
+    @staticmethod
+    def create_menu(restaurant, day, items):
+        """
+        Create a new menu.
+
+        :param restaurant: The restaurant instance.
+        :param day: The day of the week.
+        :param items: The menu items.
+        :return: The created menu instance.
+        """
+        menu = Menu(restaurant=restaurant, day=day, items=items)
+        menu.save()
+        return menu
+
+    @staticmethod
+    def get_menu_by_day(restaurant, day):
+        """
+        Get the menu for a specific day.
+
+        :param restaurant: The restaurant instance.
+        :param day: The day of the week.
+        :return: The menu instance, or None if not found.
+        """
+        try:
+            return Menu.objects.get(restaurant=restaurant, day=day)
+        except Menu.DoesNotExist:
+            return None
+
+    @staticmethod
+    def edit_menu(menu_id, **kwargs):
+        """
+        Edit an existing menu.
+
+        :param menu_id: The ID of the menu to edit.
+        :param kwargs: The fields to update.
+        :return: The updated menu instance, or None if not found.
+        """
+        try:
+            menu = Menu.objects.get(id=menu_id)
+            for key, value in kwargs.items():
+                if value is not None:
+                    setattr(menu, key, value)
+            menu.save()
+            return menu
+        except Menu.DoesNotExist:
+            return None
