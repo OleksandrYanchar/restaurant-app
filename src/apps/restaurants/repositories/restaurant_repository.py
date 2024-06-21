@@ -1,5 +1,3 @@
-# apps/restaurants/repositories.py
-
 from apps.accounts.models import User
 from apps.restaurants.models import Restaurant, Menu
 
@@ -41,35 +39,6 @@ class RestaurantRepository:
             return restaurant
         except Restaurant.DoesNotExist:
             return None
-
-
-class EmployeeRepository:
-    @staticmethod
-    def create_employee(user, restaurant):
-        """
-        Create a new employee.
-
-        :param user: The user instance for the employee.
-        :param restaurant: The restaurant instance where the employee works.
-        :return: The created employee instance.
-        """
-        employee = Employee(user=user, restaurant=restaurant)
-        employee.save()
-        return employee
-
-    @staticmethod
-    def get_employee_by_user(user):
-        """
-        Get an employee by user instance.
-
-        :param user: The user instance.
-        :return: The employee instance, or None if not found.
-        """
-        try:
-            return Employee.objects.get(user=user)
-        except Employee.DoesNotExist:
-            return None
-
 
 class MenuRepository:
     @staticmethod
