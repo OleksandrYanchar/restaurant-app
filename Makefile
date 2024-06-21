@@ -32,13 +32,13 @@ test:
 	sudo docker-compose run backend python manage.py test
 
 test-restaurant:
-	sudo docker-compospython manage.py test apps/restaurants/tests/
+	sudo docker-compose run backen python manage.py test apps/restaurants/tests/
 
 clean:
 	sudo docker-compose down -v
 
 format:
-	black src/ --config utils/black.toml
+	black src/
 
 docker_format:
 	sudo docker-compose run backend black src/ --config utils/black.toml
