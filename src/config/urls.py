@@ -30,6 +30,9 @@ urlpatterns = [
     
    # Restaurant urls
    path(f"{API_VERS}/restaurant/", include('restaurants.urls')),
+       
+   # Voting urls
+   path(f"{API_VERS}/vote/", include('votes.urls')),
 
     # Swagger urls
     path(f'{API_VERS}/swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),  

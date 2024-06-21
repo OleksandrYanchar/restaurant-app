@@ -1,12 +1,11 @@
-from uuid import UUID
 from django.db import IntegrityError
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from apps.restaurants.api.serializers.restaurant_serializers import EmployeeSerializer, RestaurantEditSerializer, RestaurantSerializer
+from apps.restaurants.api.serializers.restaurant_serializers import RestaurantEditSerializer, RestaurantSerializer
 from apps.restaurants.models import Restaurant
-from apps.restaurants.permissions import IsOwner, IsOwnerOrAdmin
+from apps.restaurants.permissions import IsOwner
 from apps.restaurants.repositories.restaurant_repository import RestaurantRepository
 
 
@@ -45,13 +44,5 @@ class RestaurantEditView(generics.UpdateAPIView):
             self.perform_update(serializer)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class AddEmployeeView(generics.CreateAPIView):
-    serializer_class = EmployeeSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
 
-    def perform_create(self, serializer):
-        restaurant_id = self.kwargs['restaurant_id']
-        restaurant = Restaurant.objects.get(pk=restaurant_id)
-        self.check_object_permissions(self.request, restaurant)
-        serializer.save(restaurant=restaurant)
+
