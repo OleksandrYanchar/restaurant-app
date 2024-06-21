@@ -15,55 +15,143 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Menu',
+            name="Menu",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('day', models.CharField(choices=[('Monday', 'Monday'), ('Tuesday', 'Tuesday'), ('Wednesday', 'Wednesday'), ('Thursday', 'Thursday'), ('Friday', 'Friday'), ('Saturday', 'Saturday'), ('Sunday', 'Sunday')], max_length=9, verbose_name='day')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "day",
+                    models.CharField(
+                        choices=[
+                            ("Monday", "Monday"),
+                            ("Tuesday", "Tuesday"),
+                            ("Wednesday", "Wednesday"),
+                            ("Thursday", "Thursday"),
+                            ("Friday", "Friday"),
+                            ("Saturday", "Saturday"),
+                            ("Sunday", "Sunday"),
+                        ],
+                        max_length=9,
+                        verbose_name="day",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'menu',
-                'verbose_name_plural': 'menus',
-                'db_table': 'menus',
+                "verbose_name": "menu",
+                "verbose_name_plural": "menus",
+                "db_table": "menus",
             },
         ),
         migrations.CreateModel(
-            name='MenuItem',
+            name="MenuItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=128, verbose_name='name')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=6, verbose_name='price')),
-                ('picture', models.ImageField(blank=True, null=True, upload_to='menu_pictures/', verbose_name='picture')),
-                ('menu', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='restaurants.menu')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=128, verbose_name="name")),
+                (
+                    "price",
+                    models.DecimalField(
+                        decimal_places=2, max_digits=6, verbose_name="price"
+                    ),
+                ),
+                (
+                    "picture",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="menu_pictures/",
+                        verbose_name="picture",
+                    ),
+                ),
+                (
+                    "menu",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="items",
+                        to="restaurants.menu",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'menu item',
-                'verbose_name_plural': 'menu items',
-                'db_table': 'menu_items',
+                "verbose_name": "menu item",
+                "verbose_name_plural": "menu items",
+                "db_table": "menu_items",
             },
         ),
         migrations.CreateModel(
-            name='Restaurant',
+            name="Restaurant",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=128, verbose_name='title')),
-                ('address', models.CharField(blank=True, max_length=256, null=True, verbose_name='address')),
-                ('contact_phone', models.CharField(blank=True, max_length=15, null=True, verbose_name='contact phone')),
-                ('email', models.EmailField(blank=True, max_length=254, null=True, verbose_name='email')),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='restaurant_owner', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=128, verbose_name="title")),
+                (
+                    "address",
+                    models.CharField(
+                        blank=True, max_length=256, null=True, verbose_name="address"
+                    ),
+                ),
+                (
+                    "contact_phone",
+                    models.CharField(
+                        blank=True,
+                        max_length=15,
+                        null=True,
+                        verbose_name="contact phone",
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        blank=True, max_length=254, null=True, verbose_name="email"
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="restaurant_owner",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'restaurant',
-                'verbose_name_plural': 'restaurants',
-                'db_table': 'restaurants',
+                "verbose_name": "restaurant",
+                "verbose_name_plural": "restaurants",
+                "db_table": "restaurants",
             },
         ),
         migrations.AddField(
-            model_name='menu',
-            name='restaurant',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='menus', to='restaurants.restaurant'),
+            model_name="menu",
+            name="restaurant",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="menus",
+                to="restaurants.restaurant",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='menu',
-            unique_together={('restaurant', 'day')},
+            name="menu",
+            unique_together={("restaurant", "day")},
         ),
     ]

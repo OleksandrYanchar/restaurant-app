@@ -1,6 +1,7 @@
 from apps.accounts.models import User
 from apps.restaurants.models import Restaurant, Menu
 
+
 class RestaurantRepository:
     @staticmethod
     def create_restaurant(title, owner, address=None, contact_phone=None, email=None):
@@ -18,7 +19,7 @@ class RestaurantRepository:
             owner=owner,
             address=address,
             contact_phone=contact_phone,
-            email=email
+            email=email,
         )
 
     @staticmethod
@@ -39,6 +40,7 @@ class RestaurantRepository:
             return restaurant
         except Restaurant.DoesNotExist:
             return None
+
 
 class MenuRepository:
     @staticmethod

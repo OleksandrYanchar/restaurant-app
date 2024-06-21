@@ -14,10 +14,21 @@ urlpatterns = [
         name="change-password",
     ),
     path("delete-account/", auth_views.DeleteUserView.as_view(), name="delete-account"),
-    path('email-verification/<str:uidb64>/<str:token>/', auth_views.ActivateView.as_view(), name='email-verification'),
-    path('password-reset/', auth_views.CheckResetUserPasswordEmailView.as_view(), name='reset-password'),
-    path('password-reset/<str:uidb64>/<str:token>/', auth_views.PasswordResetView.as_view(), name='reset-user-password'),
-    
+    path(
+        "email-verification/<str:uidb64>/<str:token>/",
+        auth_views.ActivateView.as_view(),
+        name="email-verification",
+    ),
+    path(
+        "password-reset/",
+        auth_views.CheckResetUserPasswordEmailView.as_view(),
+        name="reset-password",
+    ),
+    path(
+        "password-reset/<str:uidb64>/<str:token>/",
+        auth_views.PasswordResetView.as_view(),
+        name="reset-user-password",
+    ),
     # JWT
     path("jwt/create/", auth_views.MyTokenObtainPairView.as_view(), name="jwt-create"),
     path("jwt/refresh/", TokenRefreshView.as_view(), name="token-refresh"),

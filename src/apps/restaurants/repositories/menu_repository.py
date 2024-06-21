@@ -1,5 +1,6 @@
 from apps.restaurants.models import Menu, MenuItem
 
+
 class MenuRepository:
     @staticmethod
     def create_menu(restaurant, day, items_data):
@@ -16,13 +17,12 @@ class MenuRepository:
 
         items = []
         for item_data in items_data:
-            item = MenuItem(menu=menu, name=item_data['name'], price=item_data['price'])
+            item = MenuItem(menu=menu, name=item_data["name"], price=item_data["price"])
             item.save()
             items.append(item)
 
         menu.items.set(items)
         return menu
-
 
     @staticmethod
     def get_menu_by_day(restaurant, day):
@@ -49,7 +49,7 @@ class MenuRepository:
         """
         try:
             menu = Menu.objects.get(id=menu_id)
-            items_data = kwargs.pop('items', None)
+            items_data = kwargs.pop("items", None)
             for key, value in kwargs.items():
                 if value is not None:
                     setattr(menu, key, value)
@@ -58,12 +58,12 @@ class MenuRepository:
             if items_data is not None:
                 # Update or create menu items
                 for item_data in items_data:
-                    item_id = item_data.get('id')
+                    item_id = item_data.get("id")
                     if item_id:
                         try:
                             item = MenuItem.objects.get(id=item_id, menu=menu)
                             for key, value in item_data.items():
-                                if key != 'id' and value is not None:
+                                if key != "id" and value is not None:
                                     setattr(item, key, value)
                             item.save()
                         except MenuItem.DoesNotExist:

@@ -22,14 +22,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["email",]
+    REQUIRED_FIELDS = [
+        "email",
+    ]
 
     class Meta:
         db_table = "users"
         verbose_name = _("user")
         verbose_name_plural = _("users")
-        app_label = 'accounts'
-
+        app_label = "accounts"
 
     def __str__(self) -> str:
         return f"username: {self.username}, email: {self.email}"
