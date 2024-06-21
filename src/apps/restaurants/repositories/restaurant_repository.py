@@ -1,28 +1,27 @@
+# apps/restaurants/repositories.py
+
 from apps.accounts.models import User
 from apps.restaurants.models import Restaurant, Menu
 
 class RestaurantRepository:
     @staticmethod
-    def create_restaurant(title, user, address, contact_phone, email):
+    def create_restaurant(title, owner, address=None, contact_phone=None, email=None):
         """
         Create a new restaurant.
 
         :param title: The title of the restaurant.
-        :param user: The owner of the restaurant.
         :param address: The address of the restaurant.
         :param contact_phone: The contact phone of the restaurant.
         :param email: The email of the restaurant.
         :return: The created restaurant instance.
         """
-        restaurant = Restaurant(
+        return Restaurant.objects.create(
             title=title,
+            owner=owner,
             address=address,
             contact_phone=contact_phone,
-            email=email,
-            owner=user
+            email=email
         )
-        restaurant.save()
-        return restaurant
 
     @staticmethod
     def edit_restaurant(restaurant_id, **kwargs):
@@ -42,6 +41,35 @@ class RestaurantRepository:
             return restaurant
         except Restaurant.DoesNotExist:
             return None
+
+
+class EmployeeRepository:
+    @staticmethod
+    def create_employee(user, restaurant):
+        """
+        Create a new employee.
+
+        :param user: The user instance for the employee.
+        :param restaurant: The restaurant instance where the employee works.
+        :return: The created employee instance.
+        """
+        employee = Employee(user=user, restaurant=restaurant)
+        employee.save()
+        return employee
+
+    @staticmethod
+    def get_employee_by_user(user):
+        """
+        Get an employee by user instance.
+
+        :param user: The user instance.
+        :return: The employee instance, or None if not found.
+        """
+        try:
+            return Employee.objects.get(user=user)
+        except Employee.DoesNotExist:
+            return None
+
 
 class MenuRepository:
     @staticmethod

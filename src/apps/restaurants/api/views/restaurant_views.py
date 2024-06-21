@@ -26,10 +26,9 @@ class RestaurantCreateView(APIView):
                 )
                 return Response(RestaurantSerializer(restaurant).data, status=status.HTTP_201_CREATED)
         except IntegrityError:
-            return Response({'details': 'restaurant alraedy exists'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'details': 'restaurant already exists'}, status=status.HTTP_400_BAD_REQUEST)
         
         return Response({'details': 'error creating restaurant'}, status=status.HTTP_400_BAD_REQUEST)
-
 
 class RestaurantEditView(generics.UpdateAPIView):
     queryset = Restaurant.objects.all()
