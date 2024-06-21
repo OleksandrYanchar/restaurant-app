@@ -28,6 +28,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = "users"
         verbose_name = _("user")
         verbose_name_plural = _("users")
+        app_label = 'accounts'
+
 
     def __str__(self) -> str:
         return f"username: {self.username}, email: {self.email}"
