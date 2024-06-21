@@ -6,4 +6,4 @@ class IsOwner(BasePermission):
     """
     def has_object_permission(self, request, view, obj):
         # Check if the requesting user is an owner of the restaurant.
-        return obj.restaurant.owner == request.user
+        return obj.owner == request.user
